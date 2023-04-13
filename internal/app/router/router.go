@@ -19,6 +19,7 @@ func RegisterAPI(app *gin.Engine) {
 		{
 			user.GET("/verify", api.SendEmailCode)
 			user.POST("/register", api.Register)
+			user.POST("/login", api.Login)
 		}
 	}
 }

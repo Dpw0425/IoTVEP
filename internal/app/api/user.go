@@ -16,3 +16,13 @@ func Register(c *gin.Context) {
 
 	service.Register(c, su)
 }
+
+func Login(c *gin.Context) {
+	var su schema.User
+	if err := c.ShouldBindJSON(&su); err != nil {
+		error.Response(c, error.BadRequest, gin.H{}, "输入内容有误！")
+		return
+	}
+
+	service.Login(c, su)
+}
