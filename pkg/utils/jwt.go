@@ -15,7 +15,7 @@ func ReleaseToken(eu entity.User) (string, error) {
 	// token 结构生成
 	claims := &schema.Claims{
 		// 使用 ID、Username 作为有效载荷
-		UID: eu.ID,
+		UID: int(eu.ID),
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Unix() + int64(config.CONFIG.Jwt.Expired), // 签名过期时间
 			NotBefore: time.Now().Unix() - 1000,                             // 签名生效时间
