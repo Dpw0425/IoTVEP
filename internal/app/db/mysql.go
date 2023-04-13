@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 	"iotvep/internal/app/config"
 	"iotvep/internal/app/entity"
+	"iotvep/internal/app/schema"
 	"iotvep/pkg/logger"
 )
 
@@ -16,6 +17,7 @@ func InitMysql() {
 	} else {
 		// 自动建表
 		db.AutoMigrate(&entity.User{})
+		db.Table("equipments").AutoMigrate(&schema.EquipmentIntro{})
 		config.MYSQLDB = db
 		logger.Info("连接 Mysql 成功: %v", config.DSN(m))
 	}

@@ -21,5 +21,24 @@ func RegisterAPI(app *gin.Engine) {
 			user.POST("/register", api.Register)
 			user.POST("/login", api.Login)
 		}
+
+		app.Use(middleware.Auth())
+		{
+			index := app.Group("/index")
+			{
+				index.GET("/statistics", api.Statistics)
+				index.GET("/my_item", api.MyItem)
+			}
+
+			equipment := app.Group("/equipment")
+			{
+				equipment.GET("/list", api.EquipList)
+			}
+
+			item := app.Group("/item")
+			{
+				item.GET("/list")
+			}
+		}
 	}
 }
