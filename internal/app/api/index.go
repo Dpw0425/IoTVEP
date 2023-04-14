@@ -13,5 +13,7 @@ func Statistics(c *gin.Context) {
 }
 
 func MyItem(c *gin.Context) {
+	uid, _ := strconv.Atoi(c.Query("uid"))
 
+	service.MyItem(c, uint(uid))
 }
