@@ -18,6 +18,8 @@ func InitMysql() {
 		// 自动建表
 		db.AutoMigrate(&entity.User{})
 		db.Table("equipments").AutoMigrate(&schema.EquipmentIntro{})
+		db.AutoMigrate(&entity.Item{})
+		db.AutoMigrate(&entity.ItemEquipment{})
 		config.MYSQLDB = db
 		logger.Info("连接 Mysql 成功: %v", config.DSN(m))
 	}
