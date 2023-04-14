@@ -53,7 +53,8 @@ func AddItem(c *gin.Context, sai schema.AddItem) {
 		result1 := config.MYSQLDB.Table("item_equipments").Create(&eie)
 		if result1.Error != nil {
 			error.Response(c, error.BadRequest, gin.H{}, "新建项目失败！")
-			// config.MYSQLDB.Table("items").Where("i_id = ?", uint(i)).Unscoped().Delete(&ei)
+			config.MYSQLDB.Table("items").Where("i_id = ?", uint(i+1)).Unscoped().Delete(&ei)
+			config.MYSQLDB.Table("item_equipments").Where("i_id = ?", uint(i+1)).Unscoped().Delete(&eie)
 			return
 		}
 	}
