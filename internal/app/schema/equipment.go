@@ -18,7 +18,7 @@ package schema
 //}
 
 type EquipmentInfo struct {
-	EID       uint   `json:"eid"`
-	EquipIMG  string `json:"equip_img"`
-	EquipName string `json:"equip_name"`
+	EID       uint   `json:"eid" gorm:"primaryKey" binding:"omitempty"`
+	EquipIMG  string `json:"equip_img" binding:"omitempty"`
+	EquipName string `json:"equip_name" binding:"omitempty"`
 }

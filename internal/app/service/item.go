@@ -25,6 +25,7 @@ func ItemList(c *gin.Context) {
 }
 
 func AddItem(c *gin.Context, sai schema.AddItem) {
+	// 判断是否存在同名项目
 	var i int64
 	config.MYSQLDB.Table("items").Where("item_name = ? and uid = ?", sai.ItemName, sai.UID).Count(&i)
 	if i != 0 {
@@ -32,6 +33,7 @@ func AddItem(c *gin.Context, sai schema.AddItem) {
 		return
 	}
 
+	// 创建项目到数据库
 	var ei entity.Item
 	config.MYSQLDB.Table("items").Count(&i)
 	ei.IID = uint(i + 1)
@@ -45,6 +47,7 @@ func AddItem(c *gin.Context, sai schema.AddItem) {
 		return
 	}
 
+	// 创建项目和传感器设备关联表
 	var eie entity.ItemEquipment
 	for _, value := range sai.Equipments {
 		eie.ID = 0

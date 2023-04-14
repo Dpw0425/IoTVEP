@@ -2,9 +2,9 @@ package entity
 
 // 项目实体
 type Item struct {
-	IID       uint   `json:"iid"`
-	UID       uint   `json:"uid"`
-	ItemIMG   string `json:"item_img"`
-	ItemName  string `json:"item_name"`
-	ItemIntro string `json:"item_intro"`
+	IID       uint   `json:"i_id" gorm:"primaryKey" binding:"omitempty"`
+	UID       uint   `json:"uid" binding:"omitempty"`
+	ItemIMG   string `json:"item_img" binding:"omitempty"`
+	ItemName  string `json:"item_name" binding:"omitempty"`
+	ItemIntro string `json:"item_intro" binding:"omitempty"`
 }
