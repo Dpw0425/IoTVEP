@@ -35,8 +35,6 @@ func AddItem(c *gin.Context, sai schema.AddItem) {
 
 	// 创建项目到数据库
 	var ei entity.Item
-	config.MYSQLDB.Table("items").Count(&i)
-	ei.IID = uint(i + 1)
 	ei.UID = sai.UID
 	ei.ItemIMG = sai.ItemIMG
 	ei.ItemName = sai.ItemName
@@ -47,14 +45,22 @@ func AddItem(c *gin.Context, sai schema.AddItem) {
 		return
 	}
 
+	// 获取刚刚创建的项目的 id
+	var item_flag entity.Item
+	result1 := config.MYSQLDB.Table("items").Where("item_name = ?", sai.ItemName).First(&item_flag)
+	if result1.Error != nil {
+		error.Response(c, error.BadRequest, gin.H{}, "新建项目失败！")
+		return
+	}
+
 	// 创建项目和传感器设备关联表
 	var eie entity.ItemEquipment
 	for _, value := range sai.Equipments {
 		eie.ID = 0
-		eie.IID = uint(i + 1)
+		eie.IID = item_flag.IID
 		eie.EID = uint(value)
-		result1 := config.MYSQLDB.Table("item_equipments").Create(&eie)
-		if result1.Error != nil {
+		result2 := config.MYSQLDB.Table("item_equipments").Create(&eie)
+		if result2.Error != nil {
 			error.Response(c, error.BadRequest, gin.H{}, "新建项目失败！")
 			config.MYSQLDB.Table("items").Where("i_id = ?", uint(i+1)).Unscoped().Delete(&ei)
 			config.MYSQLDB.Table("item_equipments").Where("i_id = ?", uint(i+1)).Unscoped().Delete(&eie)
