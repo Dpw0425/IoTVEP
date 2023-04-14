@@ -17,7 +17,7 @@ package schema
 //	AData string `json:"a_data"`
 //}
 
-type EquipmentIntro struct {
+type EquipmentInfo struct {
 	EID       uint   `json:"eid"`
 	EquipIMG  string `json:"equip_img"`
 	EquipName string `json:"equip_name"`

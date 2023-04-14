@@ -17,7 +17,7 @@ func InitMysql() {
 	} else {
 		// 自动建表
 		db.AutoMigrate(&entity.User{})
-		db.Table("equipments").AutoMigrate(&schema.EquipmentIntro{})
+		db.Table("equipments").AutoMigrate(&schema.EquipmentInfo{})
 		db.AutoMigrate(&entity.Item{})
 		db.AutoMigrate(&entity.ItemEquipment{})
 		config.MYSQLDB = db

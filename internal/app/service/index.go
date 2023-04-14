@@ -17,7 +17,7 @@ func Statistics(c *gin.Context, uid uint) {
 }
 
 func MyItem(c *gin.Context, uid uint) {
-	var sil = make([]schema.ItemIntro, 0)
+	var sil = make([]schema.ItemInfo, 0)
 	result := config.MYSQLDB.Table("items").Where("uid = ?", uid).Find(&sil)
 	if result.Error != nil {
 		error.Response(c, error.BadRequest, gin.H{}, "查询失败！")

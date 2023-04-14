@@ -8,7 +8,7 @@ import (
 )
 
 func EquipList(c *gin.Context) {
-	var seil = make([]schema.EquipmentIntro, 0)
+	var seil = make([]schema.EquipmentInfo, 0)
 	result := config.MYSQLDB.Table("equipments").Find(&seil)
 
 	// 本区域代码用于分页显示时控制每个页面的结果数量
