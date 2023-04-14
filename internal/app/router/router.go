@@ -37,7 +37,8 @@ func RegisterAPI(app *gin.Engine) {
 
 			item := app.Group("/item")
 			{
-				item.GET("/list")
+				item.GET("/list", api.ItemList)
+				item.POST("/add", api.AddItem)
 			}
 		}
 	}
